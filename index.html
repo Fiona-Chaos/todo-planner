@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>My Planner PRO</title>
+
+    <link
+        rel="stylesheet"
+        href="style.css"
+    >
+</head>
+
+<body>
+
+<div class="app">
+
+    <!-- =========================================
+         HEADER
+    ========================================== -->
+
+    <header class="topbar">
+
+        <div>
+            <div class="mini-title">
+                PERSONAL PLANNER
+            </div>
+
+            <h1>
+                Мои планы ✨
+            </h1>
+
+            <p class="welcome">
+                Планируй задачи, время и цели в одном месте.
+            </p>
+        </div>
+
+
+        <div class="header-actions">
+
+            <button
+                id="todayBtn"
+                class="header-btn"
+            >
+                📅 Сегодня
+            </button>
+
+            <button
+                id="notificationBtn"
+                class="header-btn"
+            >
+                🔔 Уведомления
+            </button>
+
+            <button
+                id="printBtn"
+                class="header-btn"
+            >
+                🖨 PDF
+            </button>
+
+            <button
+                id="themeBtn"
+                class="theme-btn"
+            >
+                🌙
+            </button>
+
+            <button
+                id="addDayBtn"
+                class="primary-btn"
+            >
+                + Добавить день
+            </button>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================================
+         STATISTICS
+    ========================================== -->
+
+    <section class="stats-grid">
+
+        <div class="stat-card">
+            <div class="stat-icon">📋</div>
+
+            <div>
+                <strong id="totalTasks">
+                    0
+                </strong>
+
+                <span>
+                    Всего задач
+                </span>
+            </div>
+        </div>
+
+
+        <div class="stat-card">
+            <div class="stat-icon">✅</div>
+
+            <div>
+                <strong id="completedTasks">
+                    0
+                </strong>
+
+                <span>
+                    Выполнено
+                </span>
+            </div>
+        </div>
+
+
+        <div class="stat-card">
+            <div class="stat-icon">⏳</div>
+
+            <div>
+                <strong id="remainingTasks">
+                    0
+                </strong>
+
+                <span>
+                    Осталось
+                </span>
+            </div>
+        </div>
+
+
+        <div class="stat-card">
+            <div class="stat-icon">📈</div>
+
+            <div>
+                <strong id="progressPercent">
+                    0%
+                </strong>
+
+                <span>
+                    Прогресс
+                </span>
+            </div>
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         PROGRESS
+    ========================================== -->
+
+    <section class="progress-card">
+
+        <div class="progress-heading">
+
+            <span>
+                Общий прогресс
+            </span>
+
+            <span id="progressText">
+                0 из 0
+            </span>
+
+        </div>
+
+
+        <div class="progress-bg">
+
+            <div
+                id="progressBar"
+                class="progress-bar"
+            ></div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================================
+         SEARCH + FILTERS
+    ========================================== -->
+
+    <section class="filters">
+
+        <div class="search-wrapper">
+
+            <span>
+                🔎
+            </span>
+
+            <input
+                id="searchInput"
+                type="text"
+                placeholder="Поиск задачи..."
+            >
+
+        </div>
+
+
+        <select id="statusFilter">
+
+            <option value="all">
+                Все задачи
+            </option>
+
+            <option value="active">
+                Только активные
+            </option>
+
+            <option value="completed">
+                Только выполненные
+            </option>
+
+        </select>
+
+
+        <select id="categoryFilter">
+
+            <option value="all">
+                Все категории
+            </option>
+
+            <option value="work">
+                💼 Работа
+            </option>
+
+            <option value="study">
+                📚 Учёба
+            </option>
+
+            <option value="personal">
+                🏠 Личное
+            </option>
+
+            <option value="health">
+                💗 Здоровье
+            </option>
+
+            <option value="shopping">
+                🛍 Покупки
+            </option>
+
+            <option value="other">
+                ✨ Другое
+            </option>
+
+        </select>
+
+
+        <select id="priorityFilter">
+
+            <option value="all">
+                Любой приоритет
+            </option>
+
+            <option value="high">
+                🔴 Высокий
+            </option>
+
+            <option value="medium">
+                🟡 Средний
+            </option>
+
+            <option value="low">
+                🟢 Низкий
+            </option>
+
+        </select>
+
+
+        <button
+            id="resetFilters"
+            class="secondary-btn"
+        >
+            Сбросить
+        </button>
+
+    </section>
+
+
+    <!-- =========================================
+         CALENDAR
+    ========================================== -->
+
+    <section class="calendar-panel">
+
+        <div class="calendar-header">
+
+            <button
+                id="prevMonth"
+                class="calendar-arrow"
+            >
+                ‹
+            </button>
+
+
+            <h2 id="calendarTitle"></h2>
+
+
+            <button
+                id="nextMonth"
+                class="calendar-arrow"
+            >
+                ›
+            </button>
+
+        </div>
+
+
+        <div class="calendar-weekdays">
+
+            <span>Пн</span>
+            <span>Вт</span>
+            <span>Ср</span>
+            <span>Чт</span>
+            <span>Пт</span>
+            <span>Сб</span>
+            <span>Вс</span>
+
+        </div>
+
+
+        <div
+            id="calendarGrid"
+            class="calendar-grid"
+        ></div>
+
+    </section>
+
+
+    <!-- =========================================
+         DAYS
+    ========================================== -->
+
+    <main id="daysContainer"></main>
+
+
+    <!-- =========================================
+         EMPTY
+    ========================================== -->
+
+    <section
+        id="emptyState"
+        class="empty-state"
+    >
+
+        <div class="empty-icon">
+            🗓️
+        </div>
+
+        <h2>
+            Планировщик пока пуст
+        </h2>
+
+        <p>
+            Добавь первый день и начни планировать.
+        </p>
+
+        <button
+            id="emptyAddDay"
+            class="primary-btn"
+        >
+            + Добавить день
+        </button>
+
+    </section>
+
+</div>
+
+
+
+<!-- =========================================
+     DAY MODAL
+========================================== -->
+
+<div
+    id="dayModal"
+    class="modal"
+>
+
+    <div class="modal-window small-modal">
+
+        <button
+            id="closeDayModal"
+            class="modal-close"
+        >
+            ×
+        </button>
+
+        <h2>
+            Новый день
+        </h2>
+
+        <p class="modal-description">
+            Выберите дату и добавьте название.
+        </p>
+
+
+        <label>
+            Дата
+        </label>
+
+        <input
+            id="newDayDate"
+            type="date"
+        >
+
+
+        <label>
+            Название
+        </label>
+
+        <input
+            id="newDayTitle"
+            type="text"
+            placeholder="Например: Рабочий день"
+        >
+
+
+        <div class="modal-buttons">
+
+            <button
+                id="cancelDay"
+                class="secondary-btn"
+            >
+                Отмена
+            </button>
+
+            <button
+                id="saveDay"
+                class="primary-btn"
+            >
+                Добавить
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<!-- =========================================
+     TASK MODAL
+========================================== -->
+
+<div
+    id="taskModal"
+    class="modal"
+>
+
+    <div class="modal-window task-modal">
+
+        <button
+            id="closeTaskModal"
+            class="modal-close"
+        >
+            ×
+        </button>
+
+
+        <h2 id="taskModalTitle">
+            Новая задача
+        </h2>
+
+
+        <label>
+            Название задачи
+        </label>
+
+        <input
+            id="taskName"
+            type="text"
+            placeholder="Что нужно сделать?"
+        >
+
+
+        <div class="two-columns">
+
+            <div>
+
+                <label>
+                    Время с
+                </label>
+
+                <input
+                    id="taskStart"
+                    type="time"
+                >
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Время до
+                </label>
+
+                <input
+                    id="taskEnd"
+                    type="time"
+                >
+
+            </div>
+
+        </div>
+
+
+        <label>
+            Дедлайн
+        </label>
+
+        <input
+            id="taskDeadline"
+            type="datetime-local"
+        >
+
+
+        <div class="two-columns">
+
+            <div>
+
+                <label>
+                    Категория
+                </label>
+
+                <select id="taskCategory">
+
+                    <option value="work">
+                        💼 Работа
+                    </option>
+
+                    <option value="study">
+                        📚 Учёба
+                    </option>
+
+                    <option value="personal">
+                        🏠 Личное
+                    </option>
+
+                    <option value="health">
+                        💗 Здоровье
+                    </option>
+
+                    <option value="shopping">
+                        🛍 Покупки
+                    </option>
+
+                    <option value="other">
+                        ✨ Другое
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Приоритет
+                </label>
+
+                <select id="taskPriority">
+
+                    <option value="low">
+                        🟢 Низкий
+                    </option>
+
+                    <option
+                        value="medium"
+                        selected
+                    >
+                        🟡 Средний
+                    </option>
+
+                    <option value="high">
+                        🔴 Высокий
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <div class="two-columns">
+
+            <div>
+
+                <label>
+                    Повторение
+                </label>
+
+                <select id="taskRepeat">
+
+                    <option value="none">
+                        Не повторять
+                    </option>
+
+                    <option value="daily">
+                        Каждый день
+                    </option>
+
+                    <option value="weekly">
+                        Каждую неделю
+                    </option>
+
+                    <option value="monthly">
+                        Каждый месяц
+                    </option>
+
+                </select>
+
+            </div>
+
+
+            <div>
+
+                <label>
+                    Напомнить
+                </label>
+
+                <select id="taskReminder">
+
+                    <option value="0">
+                        Не напоминать
+                    </option>
+
+                    <option value="5">
+                        За 5 минут
+                    </option>
+
+                    <option
+                        value="15"
+                        selected
+                    >
+                        За 15 минут
+                    </option>
+
+                    <option value="30">
+                        За 30 минут
+                    </option>
+
+                    <option value="60">
+                        За 1 час
+                    </option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+
+        <!-- SUBTASKS -->
+
+        <div class="subtask-editor">
+
+            <div class="subtask-heading">
+
+                <label>
+                    Подзадачи
+                </label>
+
+                <button
+                    id="addSubtaskBtn"
+                    type="button"
+                    class="small-btn"
+                >
+                    + Подзадача
+                </button>
+
+            </div>
+
+
+            <div id="subtaskEditorList"></div>
+
+        </div>
+
+
+        <label>
+            Заметка
+        </label>
+
+        <textarea
+            id="taskNotes"
+            rows="4"
+            placeholder="Дополнительная информация..."
+        ></textarea>
+
+
+        <div class="modal-buttons">
+
+            <button
+                id="cancelTask"
+                class="secondary-btn"
+            >
+                Отмена
+            </button>
+
+            <button
+                id="saveTask"
+                class="primary-btn"
+            >
+                Сохранить
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
